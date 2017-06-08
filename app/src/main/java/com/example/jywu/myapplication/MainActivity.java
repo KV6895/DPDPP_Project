@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_choosebook,btn_addrecordm,btn_checkrecord,btn_exit;
     private String Data;
     private MyDBHelper DBhelper;
+    private String chooseBook ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,16 +31,19 @@ public class MainActivity extends AppCompatActivity {
         btn_addrecordm = (Button)findViewById(R.id.btn_addrecord);
         btn_checkrecord = (Button)findViewById(R.id.btn_checkrecord);
         btn_exit = (Button)findViewById(R.id.btn_exit);
-        Log.e("Start","~~");
-
         DBhelper = new MyDBHelper(this,"hello",null,1);
         Bundle bundle = getIntent().getExtras();
         try {
             Data = bundle.getString("Data");
             add(Data);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+        try {
+            chooseBook = bundle.getString("Book");
+        } catch (Exception e) {
+            e.printStackTrace();
+            chooseBook = "我的帳本";
         }
         btn_choosebook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this,ChoosebookActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -56,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this,AddrecordActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putString("Book",chooseBook);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
             }
@@ -80,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        Log.e("RESUME","~~");
+        //Log.e("RESUME","~~");
     }
     private void add (String inputData){
         Log.e("Inputdata",inputData);
@@ -93,26 +100,24 @@ public class MainActivity extends AppCompatActivity {
             String test = inputData.substring(header,index);
             buffer.add(test);
             inputData = inputData.substring(index+1);
-            Log.e("hi",test);
             index = inputData.indexOf(",");
-            Log.e("hello!!!!","~");
         }
-        values.put("book", "我的帳本");
-        values.put("cdate",buffer.get(0));
-        values.put("info",buffer.get(1));
-        values.put("amount",buffer.get(2));
-        values.put("remarks",buffer.get(3));
+        values.put("book", buffer.get(0));
+        values.put("cdate",buffer.get(1));
+        values.put("info",buffer.get(2));
+        values.put("amount",buffer.get(3));
+        values.put("remarks",buffer.get(4));
         long id = DBhelper.getWritableDatabase().insert(DBhelper.TABLE_NAME,null,values);
         Log.e("Add",id+"");
         SQLiteDatabase db = DBhelper.getReadableDatabase();
         Cursor c = db.query(DBhelper.TABLE_NAME,null,null,null,null,null,null);
         while(c.moveToNext()) {
-            Log.e("~~",c.getInt(0)+"");
-            Log.e("~~",c.getString(1));
-            Log.e("~~",c.getString(2));
-            Log.e("~~",c.getString(3)+"");
-            Log.e("~~",c.getString(4)+"");
-            Log.e("~~",c.getInt(5)+"");
+           // Log.e("id",c.getInt(0)+"");
+           // Log.e("book",c.getString(1));
+           // Log.e("Date",c.getString(2));
+           // Log.e("info",c.getString(3)+"");
+           // Log.e("remarks",c.getString(4)+"");
+           // Log.e("money",c.getInt(5)+"");
         }
     }
 }

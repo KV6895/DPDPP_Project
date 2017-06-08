@@ -23,6 +23,7 @@ public class AddrecordActivity extends AppCompatActivity {
     private ToggleButton tbtn_food,tbtn_traffic,tbtn_home,tbtn_ent,tbtn_else,tbtn_income;
     private EditText money,describe;
     private String choose;
+    private String chooseBook;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +38,16 @@ public class AddrecordActivity extends AppCompatActivity {
         tbtn_else = (ToggleButton)findViewById(R.id.tbtn_else);
         tbtn_income = (ToggleButton)findViewById(R.id.tbtn_income);
 
+        Bundle bundle  = getIntent().getExtras();
+        chooseBook = bundle.getString("Book");
+        //Log.e("CHOOSEBOOK",chooseBook);
         tbtn_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (tbtn_food.isChecked()) {
                     setCheckfalse();
                     tbtn_food.setChecked(true);
+                    choose = "食物";
                 }
             }
         });
@@ -112,6 +117,7 @@ public class AddrecordActivity extends AppCompatActivity {
                 String data = new String();
                 Bundle bundle = new Bundle();
                 bundle.putString("Data",add());
+                bundle.putString("Book",chooseBook);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 AddrecordActivity.this.finish();
@@ -129,6 +135,7 @@ public class AddrecordActivity extends AppCompatActivity {
         if(money.getText().toString().length() == 1) {
             getMoney="0";
         }
+        inputData += chooseBook + ",";
         inputData += cdate + ",";
         inputData += choose + ",";
         inputData += getMoney+ ",";
