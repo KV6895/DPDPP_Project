@@ -1,5 +1,6 @@
 package com.example.jywu.myapplication;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ public class CheckrecordActivity extends AppCompatActivity {
     private String[] list = {"book","cdate","info","amount","remarks"};
     private ArrayAdapter<String> listAdapter;
     private SimpleCursorAdapter cursorAdapter;
+    private Cursor c;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,14 +29,18 @@ public class CheckrecordActivity extends AppCompatActivity {
         showDatabase = (ListView)findViewById(R.id.listDatabase);
         DBhelper = new MyDBHelper(this,"hello",null,1);
         SQLiteDatabase db = DBhelper.getReadableDatabase();
-        Cursor c = db.query(DBhelper.TABLE_NAME,null,null,null,null,null,null);
+        c = db.query(DBhelper.TABLE_NAME,null,null,null,null,null,null);
         //listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,list);
         cursorAdapter = new SimpleCursorAdapter(this,R.layout.databaselayout,c,list,new int[] {R.id.book,R.id.cdate,R.id.info,R.id.amount,R.id.remark});
         showDatabase.setAdapter(cursorAdapter);
         showDatabase.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "你選擇的是" + list[position], Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "你選擇的是" + list[position], Toast.LENGTH_SHORT).show();
+                c.moveToPosition(position);
+                //c.getString(6);
+                Log.e("photo",c.getString(6));
+                startShowPhoto(c.getString(6));
             }
         });
         while(c.moveToNext()) {
@@ -45,6 +51,14 @@ public class CheckrecordActivity extends AppCompatActivity {
              Log.e("remarks",c.getString(4)+"");
              Log.e("money",c.getInt(5)+"");
         }
+    }
+    public void startShowPhoto(String photo) {
+        Intent intent = new Intent();
+        intent.setClass(this,ShowPhoto.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("photo",photo);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
     /* <TextView
         android:text="消費總計"

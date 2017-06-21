@@ -15,13 +15,14 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE  TABLE " +TABLE_NAME+
+        db.execSQL("CREATE  TABLE " +TABLE_NAME +
                 "(_id INTEGER PRIMARY KEY  NOT NULL , " +
                 "book TEXT NOT NULL , " +
                 "cdate DATETIME NOT NULL, "+
                 "info TEXT NOT NULL, " +
                 "remarks TEXT NOT NULL," +
-                "amount  INTEGER)");
+                "amount  INTEGER," +
+                "photo  TEXT)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

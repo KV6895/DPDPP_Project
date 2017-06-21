@@ -26,6 +26,8 @@ public class AddrecordActivity extends AppCompatActivity {
     private String choose;
     private String chooseBook;
     private MyDBHelper DBhelper;
+    private int lastID;
+    private String photo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +43,15 @@ public class AddrecordActivity extends AppCompatActivity {
         tbtn_ent = (ToggleButton)findViewById(R.id.tbtn_ent);
         tbtn_else = (ToggleButton)findViewById(R.id.tbtn_else);
         tbtn_income = (ToggleButton)findViewById(R.id.tbtn_income);
-
         Bundle bundle  = getIntent().getExtras();
         chooseBook = bundle.getString("Book");
         tbtn_food.setChecked(true);
         choose = "食物";
+        SQLiteDatabase db = DBhelper.getReadableDatabase();
+        Cursor testc = db.query(DBhelper.TABLE_NAME, new String [] {"MAX(_id)"}, null, null, null, null, null);
+        testc.moveToFirst();
+        lastID = testc.getInt(0);
+        photo = "/sdcard/demo/94iAccounting"+String.valueOf(lastID+1)+".jpg";
         tbtn_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,6 +176,8 @@ public class AddrecordActivity extends AppCompatActivity {
         values.put("info",buffer.get(2));
         values.put("amount",buffer.get(3));
         values.put("remarks",buffer.get(4));
+        photo = "/sdcard/demo/94iAccounting"+String.valueOf(lastID+1)+".jpg";
+        values.put("photo",photo);
         long id = DBhelper.getWritableDatabase().insert(DBhelper.TABLE_NAME,null,values);
         Log.e("Add",id+"");
     }

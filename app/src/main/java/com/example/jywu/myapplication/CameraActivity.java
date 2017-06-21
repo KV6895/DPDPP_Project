@@ -164,11 +164,11 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         MyDBHelper DBhelper = new MyDBHelper(this,"hello",null,1);
         SQLiteDatabase db = DBhelper.getReadableDatabase();
         int lastId = 0;
-        Cursor c = db.query(DBhelper.TABLE_NAME,null,null,null,null,null,null);
-        while (c.moveToNext()){
-            lastId++;
-        }
-        Log.d("ID:",String.valueOf(lastId));
+
+        Cursor testc = db.query(DBhelper.TABLE_NAME, new String [] {"MAX(_id)"}, null, null, null, null, null);
+        testc.moveToFirst();
+        lastId = testc.getInt(0);
+        Log.e("ID:~",String.valueOf(testc.getInt(0)));
         return lastId;
     }
 
@@ -186,7 +186,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 picture = rotationBitmap(picture);
                 saveBitmap(picture);
             }
-
             camera.startPreview();
         }
     };
