@@ -1,6 +1,5 @@
 package com.example.jywu.myapplication;
 
-import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -200,6 +199,7 @@ public class AddrecordActivity extends AppCompatActivity {
         startActivity(intent);
         AddrecordActivity.this.finish();
     }
+
     @Override
     protected void onStop()
     {

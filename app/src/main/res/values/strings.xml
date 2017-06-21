@@ -15,4 +15,5 @@
     </string>
     <string name="title_activity_choosebook">ChoosebookActivity</string>
     <string name="title_activity_show_photo">showPhoto</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
