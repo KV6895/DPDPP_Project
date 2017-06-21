@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -20,14 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".ChoosebookActivity"
             android:label="@string/title_activity_choosebook"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddrecordActivity" />
-        <activity android:name=".CheckrecordActivity"></activity>
+        <activity android:name=".CheckrecordActivity" />
+        <activity android:name=".CameraActivity"></activity>
     </application>
 
 </manifest>

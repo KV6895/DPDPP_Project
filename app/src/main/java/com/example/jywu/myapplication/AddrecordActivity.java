@@ -20,7 +20,7 @@ import java.util.Date;
 
 public class AddrecordActivity extends AppCompatActivity {
 
-    private Button btn_addrecordOK;
+    private Button btn_addrecordOK,btn_openCamera;
     private ToggleButton tbtn_food,tbtn_traffic,tbtn_home,tbtn_ent,tbtn_else,tbtn_income;
     private EditText money,describe;
     private String choose;
@@ -34,6 +34,7 @@ public class AddrecordActivity extends AppCompatActivity {
         money = (EditText)findViewById(R.id.editText_money);
         describe = (EditText)findViewById(R.id.editText_describe);
         btn_addrecordOK = (Button)findViewById(R.id.btn_addrecordOK);
+        btn_openCamera = (Button)findViewById(R.id.btn_openCamera);
         tbtn_food = (ToggleButton)findViewById(R.id.tbtn_food);
         tbtn_traffic = (ToggleButton)findViewById(R.id.tbtn_traffic);
         tbtn_home = (ToggleButton)findViewById(R.id.tbtn_home);
@@ -43,6 +44,8 @@ public class AddrecordActivity extends AppCompatActivity {
 
         Bundle bundle  = getIntent().getExtras();
         chooseBook = bundle.getString("Book");
+        tbtn_food.setChecked(true);
+        choose = "食物";
         tbtn_food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +126,14 @@ public class AddrecordActivity extends AppCompatActivity {
                 AddrecordActivity.this.finish();
             }
         });
+
+        btn_openCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddrecordActivity.this,CameraActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     public String add() {
         String inputData = new String();
@@ -130,7 +141,7 @@ public class AddrecordActivity extends AppCompatActivity {
         Date date = new Date();
         String cdate = dateFormat.format(date);
         String getDescribe = describe.getText().toString();
-        String getMoney = money.getText().toString().substring(1);
+        String getMoney = money.getText().toString();
         if(money.getText().toString().length() == 1) {
             getMoney="0";
         }

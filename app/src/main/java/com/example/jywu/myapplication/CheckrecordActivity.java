@@ -97,5 +97,5 @@ public class CheckrecordActivity extends AppCompatActivity {
         android:layout_alignBottom="@+id/tv_outcomemoney"
         android:layout_alignStart="@+id/tv_totaltext"
         android:id="@+id/tv_totalmoney" />
-        */
+            */
 }

@@ -20,8 +20,7 @@
         android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="$"
-        android:inputType="number"
-        android:text="$" />
+        android:inputType="number" />
 
     <ToggleButton
         android:textOn="食物"
@@ -95,15 +94,6 @@
         android:ems="10"
         android:inputType="textPersonName" />
 
-    <Button
-        android:text="確定"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText_describe"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:id="@+id/btn_addrecordOK" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -112,6 +102,24 @@
         android:layout_alignTop="@+id/editText_describe"
         android:layout_marginStart="14dp"
         android:text="備註："
-        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:layout_alignBottom="@+id/editText_describe" />
+
+    <Button
+        android:text="確定"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:id="@+id/btn_addrecordOK"
+        android:layout_below="@+id/editText_describe"
+        android:layout_alignStart="@+id/tbtn_else" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/btn_openCamera"
+        android:layout_alignBottom="@+id/btn_addrecordOK"
+        android:layout_alignStart="@+id/tbtn_traffic"
+        android:background="@drawable/camera0"
+        android:elevation="0dp"
+        style="@android:style/Widget.Button" />
 </RelativeLayout>
