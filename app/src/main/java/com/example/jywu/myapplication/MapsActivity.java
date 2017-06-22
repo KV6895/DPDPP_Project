@@ -1,6 +1,7 @@
 package com.example.jywu.myapplication;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -26,13 +27,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Location currentLocation;
     private Marker currentMarker;
     private LocationManager locMgr;
-
+    public LatLng myLatLng;
+    private String chooseBook;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         locMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        Bundle bundle  = getIntent().getExtras();
+        chooseBook = bundle.getString("Book");
+        Log.e("choose",chooseBook);
         String provider = locMgr.getBestProvider(criteria, true);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -96,6 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.e("say hi ", "hi");
         // 移動地圖到目前的位置
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        myLatLng = latLng;
 
     }
 
@@ -124,4 +130,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          super.onPause();
          locMgr.removeUpdates(this);
  }
+    @Override
+    public  void onBackPressed(){
+        Intent intent = new Intent();
+        intent.setClass(MapsActivity.this,AddrecordActivity.class);
+        Bundle bundle = new Bundle();
+        //addtoDatabase(add()); // input data to the database
+        bundle.putString("Book",chooseBook);
+        bundle.putDouble("latitude",myLatLng.latitude);
+        bundle.putDouble("longitude",myLatLng.longitude);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        this.finish();
+    }
 }

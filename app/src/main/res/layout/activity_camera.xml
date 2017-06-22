@@ -10,8 +10,8 @@
         android:layout_height="match_parent"/>
 
     <Button android:id="@+id/taskPicture"
-        android:layout_width="50dp"
-        android:layout_height="37dp"
+        android:layout_width="35dp"
+        android:layout_height="25dp"
         android:background="@drawable/camera_icon"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />

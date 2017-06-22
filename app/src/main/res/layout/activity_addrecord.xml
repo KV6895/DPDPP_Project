@@ -117,9 +117,17 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:id="@+id/btn_openCamera"
-        android:layout_alignBottom="@+id/btn_addrecordOK"
-        android:layout_alignStart="@+id/tbtn_traffic"
         android:background="@drawable/camera0"
         android:elevation="0dp"
-        style="@android:style/Widget.Button" />
+        style="@android:style/Widget.Button"
+        android:layout_alignBottom="@+id/btn_addrecordOK"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/btn_gps"
+        android:background="@drawable/gps"
+        android:layout_alignEnd="@+id/tbtn_traffic"
+        android:layout_alignBottom="@+id/btn_openCamera" />
 </RelativeLayout>

@@ -73,10 +73,8 @@ public class MainActivity extends AppCompatActivity {
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this,MapsActivity.class);
-                startActivity(intent);
-                //MainActivity.this.finish();
+
+                MainActivity.this.finish();
             }
         });
     }

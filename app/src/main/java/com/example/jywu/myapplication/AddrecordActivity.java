@@ -12,14 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 public class AddrecordActivity extends AppCompatActivity {
 
-    private Button btn_addrecordOK,btn_openCamera;
+    private Button btn_addrecordOK,btn_openCamera,btn_gps;
     private ToggleButton tbtn_food,tbtn_traffic,tbtn_home,tbtn_ent,tbtn_else,tbtn_income;
     private EditText money,describe;
     private String choose;
@@ -27,6 +30,7 @@ public class AddrecordActivity extends AppCompatActivity {
     private MyDBHelper DBhelper;
     private int lastID;
     private String photo;
+    private LatLng myLatLng;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,7 @@ public class AddrecordActivity extends AppCompatActivity {
         describe = (EditText)findViewById(R.id.editText_describe);
         btn_addrecordOK = (Button)findViewById(R.id.btn_addrecordOK);
         btn_openCamera = (Button)findViewById(R.id.btn_openCamera);
+        btn_gps = (Button)findViewById(R.id.btn_gps);
         tbtn_food = (ToggleButton)findViewById(R.id.tbtn_food);
         tbtn_traffic = (ToggleButton)findViewById(R.id.tbtn_traffic);
         tbtn_home = (ToggleButton)findViewById(R.id.tbtn_home);
@@ -44,6 +49,15 @@ public class AddrecordActivity extends AppCompatActivity {
         tbtn_income = (ToggleButton)findViewById(R.id.tbtn_income);
         Bundle bundle  = getIntent().getExtras();
         chooseBook = bundle.getString("Book");
+        try {
+            myLatLng  = new LatLng(bundle.getDouble("latitude"),bundle.getDouble("longitude"));
+            Log.e("success","hello");
+            Log.e("chooseBook",chooseBook);
+            Log.e("latlng",String.valueOf(myLatLng.latitude) + String.valueOf(myLatLng.longitude));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("first in","!");
+        }
         tbtn_food.setChecked(true);
         choose = "食物";
         SQLiteDatabase db = DBhelper.getReadableDatabase();
@@ -139,6 +153,17 @@ public class AddrecordActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btn_gps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                Intent intent = new Intent(AddrecordActivity.this, MapsActivity.class);
+                bundle.putString("Book",chooseBook);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     public String add() {
         String inputData = new String();
@@ -177,6 +202,8 @@ public class AddrecordActivity extends AppCompatActivity {
         values.put("remarks",buffer.get(4));
         photo = "/sdcard/demo/94iAccounting"+String.valueOf(lastID+1)+".jpg";
         values.put("photo",photo);
+        values.put("latitude",myLatLng.latitude);
+        values.put("longitude",myLatLng.longitude);
         long id = DBhelper.getWritableDatabase().insert(DBhelper.TABLE_NAME,null,values);
         Log.e("Add",id+"");
     }
@@ -199,10 +226,14 @@ public class AddrecordActivity extends AppCompatActivity {
         startActivity(intent);
         AddrecordActivity.this.finish();
     }
-
     @Override
     protected void onStop()
     {
         super.onStop();
+    }
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
     }
 }

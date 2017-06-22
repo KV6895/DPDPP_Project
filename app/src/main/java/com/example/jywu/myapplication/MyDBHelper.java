@@ -22,7 +22,9 @@ public class MyDBHelper extends SQLiteOpenHelper {
                 "info TEXT NOT NULL, " +
                 "remarks TEXT NOT NULL," +
                 "amount  INTEGER," +
-                "photo  TEXT)");
+                "photo  TEXT," +
+                "latitude REAL," +
+                "longitude REAL)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

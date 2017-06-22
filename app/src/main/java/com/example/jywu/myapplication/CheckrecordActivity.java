@@ -3,6 +3,7 @@ package com.example.jywu.myapplication;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.audiofx.LoudnessEnhancer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import static android.R.id.list;
 
@@ -40,76 +43,18 @@ public class CheckrecordActivity extends AppCompatActivity {
                 c.moveToPosition(position);
                 //c.getString(6);
                 Log.e("photo",c.getString(6));
-                startShowPhoto(c.getString(6));
+                startShowPhoto(c.getString(6),c.getDouble(7),c.getDouble(8));
             }
         });
-        while(c.moveToNext()) {
-             Log.e("id",c.getInt(0)+"");
-             Log.e("book",c.getString(1));
-             Log.e("Date",c.getString(2));
-             Log.e("info",c.getString(3)+"");
-             Log.e("remarks",c.getString(4)+"");
-             Log.e("money",c.getInt(5)+"");
-        }
     }
-    public void startShowPhoto(String photo) {
+    public void startShowPhoto(String photo,double latitude, double longitude) {
         Intent intent = new Intent();
         intent.setClass(this,ShowPhoto.class);
         Bundle bundle = new Bundle();
         bundle.putString("photo",photo);
+        bundle.putDouble("latitude",latitude);
+        bundle.putDouble("longitude",longitude);
         intent.putExtras(bundle);
         startActivity(intent);
     }
-    /* <TextView
-        android:text="消費總計"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_incometext"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/tv_outcometext" />
-
-    <TextView
-        android:text="收入總計"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="74dp"
-        android:id="@+id/tv_incometext"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="損益總計"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_outcometext"
-        android:layout_toEndOf="@+id/tv_outcometext"
-        android:layout_marginStart="63dp"
-        android:id="@+id/tv_totaltext" />
-
-    <TextView
-        android:text="$2000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_incometext"
-        android:layout_alignStart="@+id/tv_incometext"
-        android:layout_marginTop="15dp"
-        android:id="@+id/tv_incomemoney" />
-
-    <TextView
-        android:text="$1000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tv_incomemoney"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/tv_outcomemoney" />
-
-    <TextView
-        android:text="$1000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_outcomemoney"
-        android:layout_alignStart="@+id/tv_totaltext"
-        android:id="@+id/tv_totalmoney" />
-            */
 }
