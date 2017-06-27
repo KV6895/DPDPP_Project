@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -31,6 +32,8 @@ public class AddrecordActivity extends AppCompatActivity {
     private int lastID;
     private String photo;
     private LatLng myLatLng;
+    private TextView book;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +50,10 @@ public class AddrecordActivity extends AppCompatActivity {
         tbtn_ent = (ToggleButton)findViewById(R.id.tbtn_ent);
         tbtn_else = (ToggleButton)findViewById(R.id.tbtn_else);
         tbtn_income = (ToggleButton)findViewById(R.id.tbtn_income);
+        book = (TextView) findViewById(R.id.book);
         Bundle bundle  = getIntent().getExtras();
         chooseBook = bundle.getString("Book");
+        book.setText(chooseBook);
         try {
             myLatLng  = new LatLng(bundle.getDouble("latitude"),bundle.getDouble("longitude"));
             Log.e("success","hello");

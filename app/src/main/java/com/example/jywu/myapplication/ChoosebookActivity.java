@@ -72,6 +72,7 @@ public class ChoosebookActivity extends AppCompatActivity {
         btn_deletebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                book.remove(bookposition);
 
             }
         });

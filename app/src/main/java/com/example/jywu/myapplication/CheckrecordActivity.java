@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.File;
+
 import static android.R.id.list;
 
 public class CheckrecordActivity extends AppCompatActivity {
@@ -41,10 +43,33 @@ public class CheckrecordActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Toast.makeText(getApplicationContext(), "你選擇的是" + list[position], Toast.LENGTH_SHORT).show();
                 c.moveToPosition(position);
+                Log.e("position",String.valueOf(position));
                 //c.getString(6);
+                Log.e("ID:",String.valueOf(id));
+                Log.e("Database ID",String.valueOf(c.getInt(0)));
                 Log.e("photo",c.getString(6));
                 startShowPhoto(c.getString(6),c.getDouble(7),c.getDouble(8));
             }
+        });
+        showDatabase.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                SQLiteDatabase db = DBhelper.getWritableDatabase();
+                c.moveToPosition(position);
+                db.delete(DBhelper.TABLE_NAME, "_id = " + c.getInt(0), null);
+                //db.delete(DBhelper.TABLE_NAME,)
+                Log.e("!!!!","!");
+               // File folder = Environment.getExternalStorageDirectory();
+                String fileName = c.getString(6);
+
+                File myFile = new File(fileName);
+                if(myFile.exists())
+                    myFile.delete();
+                c.requery();
+                cursorAdapter.notifyDataSetChanged();
+                return  true;
+            }
+
         });
     }
     public void startShowPhoto(String photo,double latitude, double longitude) {

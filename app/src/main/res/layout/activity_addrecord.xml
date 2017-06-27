@@ -130,4 +130,12 @@
         android:background="@drawable/gps"
         android:layout_alignEnd="@+id/tbtn_traffic"
         android:layout_alignBottom="@+id/btn_openCamera" />
+
+    <TextView
+        android:id="@+id/book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btn_gps"
+        android:text="TextView" />
 </RelativeLayout>

@@ -21,13 +21,14 @@
         android:id="@+id/tv_choosebook" />
 
     <Button
-        android:text="刪除帳本"
+        android:id="@+id/btn_deletebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_addbook"
         android:layout_marginStart="44dp"
-        android:id="@+id/btn_deletebook"
         android:layout_toEndOf="@+id/tv_choosebook"
-        android:layout_alignTop="@+id/btn_addbook" />
+        android:text="刪除帳本"
+        android:visibility="invisible" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -38,12 +39,11 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="新增帳本"
+        android:id="@+id/btn_addbook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_addbook"
-        android:layout_marginBottom="172dp"
-        android:layout_marginEnd="39dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/tv_choosebook" />
+        android:text="確定帳本"
+        android:layout_below="@+id/spinner_choosebook"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp" />
 </RelativeLayout>
